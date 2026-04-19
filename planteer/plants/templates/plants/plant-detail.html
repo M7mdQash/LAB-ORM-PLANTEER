@@ -1,0 +1,98 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'main:home' %}" class="text-success text-decoration-none">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'plants:all_plants' %}" class="text-success text-decoration-none">All Plants</a></li>
+      <li class="breadcrumb-item active">{{ plant.name }}</li>
+    </ol>
+  </nav>
+
+  <!-- Plant Detail -->
+  <div class="row g-5 mb-5">
+    <div class="col-md-5">
+      {% if plant.image %}
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}"
+             class="img-fluid rounded-4 shadow w-100" style="max-height: 450px; object-fit: cover;">
+      {% else %}
+        <div class="bg-secondary rounded-4 d-flex align-items-center justify-content-center"
+             style="height: 450px;">
+          <i class="fas fa-seedling fa-5x text-white"></i>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="col-md-7">
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <span class="badge bg-success fs-6 text-capitalize">{{ plant.category }}</span>
+        {% if plant.is_edible %}
+          <span class="badge bg-warning text-dark fs-6"><i class="fas fa-utensils me-1"></i>Edible</span>
+        {% else %}
+          <span class="badge bg-secondary fs-6">Not Edible</span>
+        {% endif %}
+      </div>
+
+      <h1 class="fw-bold mb-3">{{ plant.name }}</h1>
+
+      <h5 class="fw-semibold text-success mt-4 mb-2">About</h5>
+      <p class="text-muted">{{ plant.about }}</p>
+
+      <h5 class="fw-semibold text-success mt-4 mb-2">Used For</h5>
+      <p class="text-muted">{{ plant.used_for }}</p>
+
+      <p class="text-muted small mt-4">
+        <i class="fas fa-calendar-alt me-1"></i>
+        Added on {{ plant.created_at|date:"F j, Y" }}
+      </p>
+
+      <!-- Actions -->
+      <div class="d-flex gap-2 mt-4">
+        <a href="{% url 'plants:update_view' plant_id=plant.id %}" class="btn btn-outline-success">
+          <i class="fas fa-edit me-1"></i>Edit
+        </a>
+        <a href="{% url 'plants:delete_view' plant_id=plant.id %}" class="btn btn-outline-danger">
+          <i class="fas fa-trash me-1"></i>Delete
+        </a>
+        <a href="{% url 'plants:all_plants' %}" class="btn btn-light ms-auto">
+          <i class="fas fa-arrow-left me-1"></i>Back
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Plants -->
+  {% if related %}
+  <hr class="my-5">
+  <h3 class="fw-bold mb-4">Related Plants</h3>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+    {% for rplant in related %}
+      <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+          {% if rplant.image %}
+            <img src="{{ rplant.image.url }}" class="card-img-top" alt="{{ rplant.name }}"
+                 style="height: 180px; object-fit: cover;">
+          {% else %}
+            <div class="bg-secondary d-flex align-items-center justify-content-center"
+                 style="height: 180px;">
+              <i class="fas fa-seedling fa-2x text-white"></i>
+            </div>
+          {% endif %}
+          <div class="card-body">
+            <h6 class="card-title fw-bold">{{ rplant.name }}</h6>
+            <p class="card-text text-muted small">{{ rplant.about|truncatewords:12 }}</p>
+            <a href="{% url 'plants:plant_detail' plant_id=rplant.id %}" class="btn btn-sm btn-outline-success">
+              View <i class="fas fa-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
