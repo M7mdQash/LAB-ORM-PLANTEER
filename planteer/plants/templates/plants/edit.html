@@ -6,7 +6,7 @@
     <div class="col-lg-7">
 
       <div class="d-flex align-items-center mb-4">
-        <a href="{% url 'plants:plant_detail' plant_id=plant.id %}" class="btn btn-light me-3">
+        <a href="{% url 'plants:plant_detail_view' plant_id=plant.id %}" class="btn btn-light me-3">
           <i class="fas fa-arrow-left"></i>
         </a>
         <div>
@@ -83,7 +83,7 @@
             <button type="submit" class="btn btn-success px-5">
               <i class="fas fa-save me-2"></i>Save Changes
             </button>
-            <a href="{% url 'plants:plant_detail' plant_id=plant.id %}" class="btn btn-light px-4">Cancel</a>
+            <a href="{% url 'plants:plant_detail_view' plant_id=plant.id %}" class="btn btn-light px-4">Cancel</a>
             <button type="button" class="btn btn-outline-danger ms-auto"
                     data-bs-toggle="modal" data-bs-target="#deleteModal">
               <i class="fas fa-trash me-1"></i>Delete

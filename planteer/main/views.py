@@ -6,3 +6,9 @@ from django.http import HttpResponse
 
 def home_view(request):
     return render(request, 'main/index.html')
+
+def contact_view(request):
+    return render(request, 'main/contact.html')
+
+def contact_messages_view(request):
+    return render(request, 'main/contact-messages.html')

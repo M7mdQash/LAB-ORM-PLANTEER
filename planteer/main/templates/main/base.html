@@ -46,13 +46,13 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                             <li class="nav-item">
-                                <a class="nav-link" href="/plants/">All Plants</a>
+                                <a class="nav-link" href="{% url 'plants:all_plants_view' %}">All Plants</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/contact/">Contact Us</a>
+                                <a class="nav-link" href="{% url 'main:contact'%}">Contact Us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-dark px-4" href="/plants/">Explore</a>
+                                <a class="btn btn-dark px-4" href="{% url 'plants:search_view' %}">Explore</a>
                             </li>
                         </ul>
                     </div>

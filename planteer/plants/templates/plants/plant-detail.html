@@ -7,7 +7,7 @@
   <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'main:home' %}" class="text-success text-decoration-none">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'plants:all_plants' %}" class="text-success text-decoration-none">All Plants</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'plants:all_plants_view' %}" class="text-success text-decoration-none">All Plants</a></li>
       <li class="breadcrumb-item active">{{ plant.name }}</li>
     </ol>
   </nav>
@@ -57,7 +57,7 @@
         <a href="{% url 'plants:delete_view' plant_id=plant.id %}" class="btn btn-outline-danger">
           <i class="fas fa-trash me-1"></i>Delete
         </a>
-        <a href="{% url 'plants:all_plants' %}" class="btn btn-light ms-auto">
+        <a href="{% url 'plants:all_plants_view' %}" class="btn btn-light ms-auto">
           <i class="fas fa-arrow-left me-1"></i>Back
         </a>
       </div>
@@ -84,7 +84,7 @@
           <div class="card-body">
             <h6 class="card-title fw-bold">{{ rplant.name }}</h6>
             <p class="card-text text-muted small">{{ rplant.about|truncatewords:12 }}</p>
-            <a href="{% url 'plants:plant_detail' plant_id=rplant.id %}" class="btn btn-sm btn-outline-success">
+            <a href="{% url 'plants:plant_detail_view' plant_id=rplant.id %}" class="btn btn-sm btn-outline-success">
               View <i class="fas fa-arrow-right ms-1"></i>
             </a>
           </div>

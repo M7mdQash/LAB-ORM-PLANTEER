@@ -51,7 +51,7 @@
               <p class="card-text text-muted small flex-grow-1">
                 {{ plant.about|truncatewords:15 }}
               </p>
-              <a href="{% url 'plants:plant_detail' plant_id=plant.id %}" class="btn btn-sm btn-outline-success mt-2 align-self-start">
+              <a href="{% url 'plants:plant_detail_view' plant_id=plant.id %}" class="btn btn-sm btn-outline-success mt-2 align-self-start">
                 View <i class="fas fa-arrow-right ms-1"></i>
               </a>
             </div>
@@ -63,7 +63,7 @@
     <div class="text-center py-5">
       <i class="fas fa-search fa-4x text-muted mb-3"></i>
       <h4 class="text-muted">No plants matched your search</h4>
-      <p class="text-muted">Try a different name, or <a href="{% url 'plants:all_plants' %}">browse all plants</a>.</p>
+      <p class="text-muted">Try a different name, or <a href="{% url 'plants:all_plants_view' %}">browse all plants</a>.</p>
     </div>
   {% else %}
     <div class="text-center py-5 text-muted">

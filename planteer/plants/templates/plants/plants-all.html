@@ -11,7 +11,7 @@
   </div>
 
   <!-- Filters -->
-  <form method="GET" action="{% url 'plants:all_plants' %}" class="row g-3 mb-5 p-4 bg-light rounded-3">
+  <form method="GET" action="{% url 'plants:all_plants_view' %}" class="row g-3 mb-5 p-4 bg-light rounded-3">
     <div class="col-md-4">
       <label for="category" class="form-label fw-semibold">Category</label>
       <select name="category" id="category" class="form-select">
@@ -31,7 +31,7 @@
     </div>
     <div class="col-md-4 d-flex align-items-end gap-2">
       <button type="submit" class="btn btn-dark flex-grow-1">Filter</button>
-      <a href="{% url 'plants:all_plants' %}" class="btn btn-outline-secondary flex-grow-1">Reset</a>
+      <a href="{% url 'plants:all_plants_view' %}" class="btn btn-outline-secondary flex-grow-1">Reset</a>
     </div>
   </form>
 
@@ -64,7 +64,7 @@
                 {% else %}
                   <span class="badge bg-secondary">Not Edible</span>
                 {% endif %}
-                <a href="{% url 'plants:plant_detail' plant_id=plant.id %}" class="btn btn-sm btn-outline-success">
+                <a href="{% url 'plants:plant_detail_view' plant_id=plant.id %}" class="btn btn-sm btn-outline-success">
                   View <i class="fas fa-arrow-right ms-1"></i>
                 </a>
               </div>
