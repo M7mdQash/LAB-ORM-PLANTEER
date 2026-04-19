@@ -6,13 +6,13 @@
   <div class="d-flex justify-content-between align-items-center mb-5">
     <div>
       <h1 class="fw-bold mb-1">Messages from Users</h1>
-      <p class="text-muted mb-0">{{ messages|length }} message{{ messages|length|pluralize }} received</p>
+      <p class="text-muted mb-0">{{ contact_messages|length }} message{{ contact_messages|length|pluralize }} received</p>
     </div>
   </div>
 
-  {% if messages %}
+  {% if contact_messages %}
     <div class="row g-4">
-      {% for msg in messages %}
+      {% for msg in contact_messages %}
         <div class="col-md-6 col-lg-4">
           <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
             <div class="d-flex align-items-center gap-3 mb-3">
