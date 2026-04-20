@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Plant
+from .models import Plant, Comments
 from .forms import PlantForm
 
 
@@ -26,8 +26,10 @@ def all_plants_view(request):
 
 def plant_detail_view(request, plant_id):
     plant = get_object_or_404(Plant, id=plant_id)
+    comments = Comments.objects.filter(plant=plant)
+
     related = Plant.objects.filter(category=plant.category).exclude(id=plant.id)
-    return render(request, 'plants/plant-detail.html', {'plant': plant, 'related': related})
+    return render(request, 'plants/plant-detail.html', {'plant': plant, 'related': related, 'comments': comments})
 
 #============= searching =============
 def search_view(request):
@@ -36,7 +38,7 @@ def search_view(request):
     return render(request, 'plants/search.html', {'plants': plants, 'query': query})
 
 
-# ==== crud stuff ======
+# ============= crud stuff =============
 def create_view(request):
     form = PlantForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -58,3 +60,15 @@ def delete_view(request, plant_id):
         plant.delete()
         return redirect('plants:all_plants_view')
     return redirect('plants:plant_detail_view', plant_id=plant_id)
+
+# ============= comment crud stuff =============
+
+def comment_create_view(request, plant_id):
+    if request.method == 'POST':
+        plant = get_object_or_404(Plant, id=plant_id)
+        new_comment = Comments(plant=plant, name=request.POST.get('name'),comment=request.POST.get('comment'))
+        new_comment.save()
+    return redirect('plants:plant_detail_view', plant_id=plant_id)
+
+
+    

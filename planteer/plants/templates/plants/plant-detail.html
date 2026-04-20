@@ -61,7 +61,36 @@
           <i class="fas fa-arrow-left me-1"></i>Back
         </a>
       </div>
+      <h2 class="mt-5">Add Comment</h2>
+      <!-- url 'plants:comment_create_view'  -->
+      <form class="d-flex flex-column gap-2" action="{% url 'plants:comment_create_view' plant.id %}" method="post">
+          {% csrf_token %}
+          <input class="form-control" name="name" required minlength="3" placeholder="name"/>
+          <textarea class="form-control" name="comment" required minlength="3" placeholder="Comment..."></textarea>
+
+
+          <input type="submit" class="btn btn-primary" value="Add comment" />
+      </form>
+
     </div>
+    <!-- TODO: make it count only comments relevant to the current plant-->
+    <h2>Comments ({{comments.count}})</h2>
+
+    <div class="d-flex flex-column gap-3">
+        {% for comments in comments %}
+
+            <div class="d-flex flex-column p-3 shadow">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>{{comments.name}}</h4>
+                    
+                </div>
+                
+                <p>{{comments.comment}}</p>
+                <p class="text-muted">{{comments.created_at}}</p>
+            </div>
+        {% endfor %}
+    </div>
+
   </div>
 
   <!-- Related Plants -->
