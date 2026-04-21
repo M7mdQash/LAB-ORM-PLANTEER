@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Plant, Comments
+from .models import Plant, Comments, Country
 from .forms import PlantForm
 
 
@@ -11,25 +11,33 @@ def all_plants_view(request):
     plants = Plant.objects.all()
     category = request.GET.get('category')
     is_edible = request.GET.get('is_edible')
+    country = request.GET.get('country')
+    
     
     if category:
         plants = plants.filter(category=category)
     if is_edible in ('true', 'false'):
         plants = plants.filter(is_edible=(is_edible == 'true'))
+    if country:
+        plants = plants.filter(countries__id=country)
         
     return render(request, 'plants/plants-all.html', {
         'plants': plants,
         'categories': Plant.Category.choices,
         'selected_category': category,
         'selected_edible': is_edible,
+        'countries': Country.objects.all(),
+        'selected_country': country,
+        
     })
 
 def plant_detail_view(request, plant_id):
     plant = get_object_or_404(Plant, id=plant_id)
+    Co = Country.objects.all()
     comments = Comments.objects.filter(plant=plant)
 
     related = Plant.objects.filter(category=plant.category).exclude(id=plant.id)
-    return render(request, 'plants/plant-detail.html', {'plant': plant, 'related': related, 'comments': comments})
+    return render(request, 'plants/plant-detail.html', {'plant': plant, 'related': related, 'comments': comments, 'counties':Co})
 
 #============= searching =============
 def search_view(request):

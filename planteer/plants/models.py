@@ -1,6 +1,12 @@
 from django.db import models
 
 # Create your models here.
+class Country(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    flag = models.ImageField( upload_to=None, height_field=None, width_field=None, max_length=None)
+    def __str__(self) -> str:
+        return self.name
+
 
 class Plant(models.Model):
     class Category(models.TextChoices):
@@ -17,6 +23,7 @@ class Plant(models.Model):
     category = models.CharField(max_length=50, choices=Category.choices)
     is_edible = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    countries = models.ManyToManyField(Country )
     def __str__(self) -> str:
         return self.name
 
@@ -28,4 +35,6 @@ class Comments(models.Model):
     def __str__(self) -> str:
         return self.name
     
-
+#TODO: make a class for  countries andlink it up with the plants in many to many relation,
+#also add an  admin panel to add countries
+#make sure to update the html to offer a dropdown to chose the countries

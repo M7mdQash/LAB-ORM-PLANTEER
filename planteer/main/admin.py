@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Contact
-from plants.models import Plant, Comments
+from plants.models import Plant, Comments, Country
 from django.urls import path, include
 
 # Register your models here.
@@ -19,3 +19,4 @@ class ContactAdmin(admin.ModelAdmin):
 admin.site.register(Contact, ContactAdmin)
 admin.site.register(Comments, CommentsAdmin)
 admin.site.register(Plant, PlantAdmin)
+admin.site.register(Country)
