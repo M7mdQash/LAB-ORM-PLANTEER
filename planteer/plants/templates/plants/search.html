@@ -30,35 +30,7 @@
   {% endif %}
 
   {% if plants %}
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
-      {% for plant in plants %}
-        <div class="col">
-          <div class="card h-100 shadow-sm border-0">
-            {% if plant.image %}
-              <img src="{{ plant.image.url }}" class="card-img-top" alt="{{ plant.name }}"
-                   style="height: 200px; object-fit: cover;">
-            {% else %}
-              <div class="bg-secondary d-flex align-items-center justify-content-center"
-                   style="height: 200px;">
-                <i class="fas fa-seedling fa-3x text-white"></i>
-              </div>
-            {% endif %}
-            <div class="card-body d-flex flex-column">
-              <div class="d-flex justify-content-between align-items-start mb-2">
-                <h5 class="card-title fw-bold mb-0">{{ plant.name }}</h5>
-                <span class="badge bg-success text-capitalize">{{ plant.category }}</span>
-              </div>
-              <p class="card-text text-muted small flex-grow-1">
-                {{ plant.about|truncatewords:15 }}
-              </p>
-              <a href="{% url 'plants:plant_detail_view' plant_id=plant.id %}" class="btn btn-sm btn-outline-success mt-2 align-self-start">
-                View <i class="fas fa-arrow-right ms-1"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
+    {% include "plants/plants-card.html" %}
   {% elif query %}
     <div class="text-center py-5">
       <i class="fas fa-search fa-4x text-muted mb-3"></i>
