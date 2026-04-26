@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Plant, Comments, Country
 from .forms import PlantForm
+from django.contrib import messages
 
 
 app_name = "plants"
@@ -48,6 +49,9 @@ def search_view(request):
 
 # ============= crud stuff =============
 def create_view(request):
+    if not request.user.is_staff:
+        messages.warning(request, "only staff can add plants", "alert-warning")
+        return redirect("main:home")
     form = PlantForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
@@ -55,6 +59,9 @@ def create_view(request):
     return render(request, 'plants/create.html', {'form': form})
 
 def update_view(request, plant_id):
+    if not request.user.is_staff:
+        messages.warning(request, "only staff can add plants", "alert-warning")
+        return redirect("main:home")
     plant = get_object_or_404(Plant, id=plant_id)
     form = PlantForm(request.POST or None, request.FILES or None, instance=plant)
     if form.is_valid():
@@ -63,6 +70,9 @@ def update_view(request, plant_id):
     return render(request, 'plants/edit.html', {'form': form, 'plant': plant})
 
 def delete_view(request, plant_id):
+    if not request.user.is_staff:
+        messages.warning(request, "only staff can add plants", "alert-warning")
+        return redirect("main:home")
     plant = get_object_or_404(Plant, id=plant_id)
     if request.method == 'POST':
         plant.delete()
@@ -72,9 +82,13 @@ def delete_view(request, plant_id):
 # ============= comment crud stuff =============
 
 def comment_create_view(request, plant_id):
+    if not request.user.is_authenticated:
+        messages.error(request, "Only registered user can add comments","alert-danger")
+        return redirect("accounts:sign_in")
+    
     if request.method == 'POST':
         plant = get_object_or_404(Plant, id=plant_id)
-        new_comment = Comments(plant=plant, name=request.POST.get('name'),comment=request.POST.get('comment'))
+        new_comment = Comments(plant=plant, user=request.user, name=request.POST.get('name'),comment=request.POST.get('comment'))
         new_comment.save()
     return redirect('plants:plant_detail_view', plant_id=plant_id)
 

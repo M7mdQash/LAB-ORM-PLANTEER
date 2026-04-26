@@ -5,9 +5,11 @@
 
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="fw-bold">All Plants</h1>
+    {% if request.user.is_staff %}
     <a href="{% url 'plants:create_view' %}" class="btn btn-success">
       <i class="fas fa-plus me-2"></i>Add Plant
     </a>
+    {% endif %}
   </div>
 
   <!-- Filters -->

@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from plants.models import Plant
 from .models import Contact
 from .forms import ContactForm
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.contrib import messages
 
 def home_view(request):
     plants = Plant.objects.all()
@@ -12,6 +16,13 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
+                    #send confirmation email
+            content_html = ("yoooo")
+            send_to = request.POST.get('email')
+            email_message = EmailMessage("confiramation","hiiii",  settings.EMAIL_HOST_USER, [send_to])
+            email_message.content_subtype = "html"
+            #email_message.connection = email_message.get_connection(True)
+            email_message.send()
             return redirect('main:contact_messages')
     else:
         form = ContactForm()
